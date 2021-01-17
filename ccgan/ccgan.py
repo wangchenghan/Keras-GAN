@@ -14,6 +14,12 @@ from keras.utils import to_categorical
 import keras.backend as K
 import scipy
 
+import os
+import sys
+root = os.path.abspath('..')
+sys.path.append(root)
+from load_data import load_data
+
 import matplotlib.pyplot as plt
 
 import numpy as np
@@ -22,11 +28,11 @@ class CCGAN():
     def __init__(self):
         self.img_rows = 32
         self.img_cols = 32
-        self.channels = 1
+        self.channels = 3
         self.img_shape = (self.img_rows, self.img_cols, self.channels)
         self.mask_height = 10
         self.mask_width = 10
-        self.num_classes = 10
+        self.num_classes = 61
 
         # Number of filters in first layer of generator and discriminator
         self.gf = 32
@@ -145,14 +151,11 @@ class CCGAN():
     def train(self, epochs, batch_size=128, sample_interval=50):
 
         # Load the dataset
-        (X_train, y_train), (_, _) = mnist.load_data()
-
-        # Rescale MNIST to 32x32
-        X_train = np.array([scipy.misc.imresize(x, [self.img_rows, self.img_cols]) for x in X_train])
+        (X_train, y_train), (_, _) = load_data(img_rows=self.img_rows, img_cols=self.img_cols, train_samples=10, validate_samples=10)
 
         # Rescale -1 to 1
         X_train = (X_train.astype(np.float32) - 127.5) / 127.5
-        X_train = np.expand_dims(X_train, axis=3)
+        #X_train = np.expand_dims(X_train, axis=3)
         y_train = y_train.reshape(-1, 1)
 
         # Adversarial ground truths
