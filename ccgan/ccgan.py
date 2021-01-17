@@ -219,11 +219,11 @@ class CCGAN():
 
         fig, axs = plt.subplots(r, c)
         for i in range(c):
-            axs[0,i].imshow(imgs[i, :, :, 0], cmap='gray')
+            axs[0,i].imshow(imgs[i, :, :, :], cmap='gray')
             axs[0,i].axis('off')
-            axs[1,i].imshow(masked_imgs[i, :, :, 0], cmap='gray')
+            axs[1,i].imshow(masked_imgs[i, :, :, :], cmap='gray')
             axs[1,i].axis('off')
-            axs[2,i].imshow(gen_imgs[i, :, :, 0], cmap='gray')
+            axs[2,i].imshow(gen_imgs[i, :, :, :], cmap='gray')
             axs[2,i].axis('off')
         fig.savefig("images/%d.png" % epoch)
         plt.close()

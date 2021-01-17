@@ -15,12 +15,14 @@ import os
 import pickle
 import random
 import numpy as np
-
+import sys
+import os
+print(sys.path)
 train_dict = my_dict.get_train_dict()
 predict_dict = my_dict.get_predict_dict()
 
-train_dir = 'AgriculturalDisease_trainingset'
-validate_dir = 'AgriculturalDisease_validationset'
+train_dir = '../AgriculturalDisease_trainingset'
+validate_dir = '../AgriculturalDisease_validationset'
 
 def get_imagelist(data_dir, image_list=[]):
     '''
@@ -123,9 +125,9 @@ def load_data(img_rows=224, img_cols=224, train_samples=3000, validate_samples=1
         print('validate_image:',count)
         if count>validate_samples-1:
             break
-    return X_train,Y_train,X_valid,Y_valid
-#######################################################   
-#######################################################   
+    return (X_train,Y_train),(X_valid,Y_valid)
+#######################################################
+#######################################################
 #    dataset = AgriculturalDisease_dict['train']
 #    for i in dataset:
 #        im = Image.open(i)
@@ -140,7 +142,7 @@ def load_data(img_rows=224, img_cols=224, train_samples=3000, validate_samples=1
 #        Y_valid.append(dataset[i])
 #    return X_train,Y_train,X_valid,Y_valid
 ########################################################
-########################################################   
+########################################################
 #    dataset = AgriculturalDisease_dict['train']
 #    for i in dataset:
 #        X_train.append(i)

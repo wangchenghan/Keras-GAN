@@ -11,6 +11,10 @@ from keras.optimizers import Adam
 import matplotlib.pyplot as plt
 
 import sys
+import os
+root = os.path.abspath('..')
+sys.path.append(root)
+from load_data import load_data
 
 import numpy as np
 
@@ -92,11 +96,11 @@ class GAN():
     def train(self, epochs, batch_size=128, sample_interval=50):
 
         # Load the dataset
-        (X_train, _), (_, _) = mnist.load_data()
-
+        (X_train, _), (_, _) = load_data(img_rows=self.img_rows, img_cols=self.img_cols, train_samples=10, validate_samples=10)
+        X_train = X_train[:,:,:,0]
         # Rescale -1 to 1
         X_train = X_train / 127.5 - 1.
-        X_train = np.expand_dims(X_train, axis=3)
+        #X_train = np.expand_dims(X_train, axis=3)
 
         # Adversarial ground truths
         valid = np.ones((batch_size, 1))
